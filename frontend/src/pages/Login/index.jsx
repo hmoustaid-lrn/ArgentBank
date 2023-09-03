@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import * as loginActions from '../../slices/loginSlice';
 
 import { userLogin } from '../../utils/userLogin'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -25,6 +26,8 @@ function Login() {
 
 
     const dispatch = useDispatch();
+    let navigate = useNavigate()
+
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -32,7 +35,8 @@ function Login() {
         try {
           const isAuthenicated = await userLogin(credientials)
           dispatch(loginActions.success())
-          alert('success')
+          
+          navigate('/profile')
         } catch (error) {
           console.log(error)
           dispatch(loginActions.error(error.response.data.message))
