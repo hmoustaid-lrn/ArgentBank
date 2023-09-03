@@ -34,7 +34,7 @@ function Login() {
         dispatch(loginActions.pending())
         try {
           const isAuthenicated = await userLogin(credientials)
-          dispatch(loginActions.success())
+          dispatch(loginActions.authenticated())
           
           navigate('/profile')
         } catch (error) {

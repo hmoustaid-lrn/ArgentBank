@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     loading: false,
-    success: false,
+    authenticated: false,
     error: '',
   }
 
@@ -14,15 +14,18 @@ const loginSlice = createSlice({
       pending: (state) => {
         state.loading = true
       },
-      success: (state) => {
+      authenticated: (state) => {
         state.loading = false
-        state.success = true
+        state.authenticated = true
         state.error = ''
       },
       error: (state, action) => {
         state.loading = false
         state.error = action.payload
-      }
+      },
+      out: (state) => {
+        state.authenticated = false
+      },
     },
   })
 
@@ -30,8 +33,9 @@ const { actions, reducer } = loginSlice
 
   export const {
     pending,
-    success,
+    authenticated,
     error,
+    out
   } = actions
 
   export default reducer
