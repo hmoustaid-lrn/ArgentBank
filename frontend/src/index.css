@@ -186,6 +186,11 @@ body {
   margin-left: 0.25rem;
 }
 
+.input-error {
+  margin-top: 15px;
+	color: red;
+}
+
 .input-wrapper {
   display: flex;
   flex-direction: column;
