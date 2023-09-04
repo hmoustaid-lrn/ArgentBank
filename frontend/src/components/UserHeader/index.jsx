@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import * as profileActions from '../../slices/profileSlice';
 
 import { userInfos } from '../../utils/userInfos'
+import EditName from "../EditName";
 
 function UserHeader() {
 
@@ -25,6 +26,7 @@ function UserHeader() {
             <br />
             {userFirstName && userFirstName} {userLastName && userLastName}!
         </h1>
+        <EditName />
     </div>
     )
   }
