@@ -4,6 +4,9 @@ import * as profileActions from '../../slices/profileSlice';
 
 import { userInfos } from '../../utils/userInfos'
 
+import AccountCard from "../../components/AccountCard";
+
+
 
 function Profile() {
 
@@ -28,6 +31,8 @@ function Profile() {
 					{userFirstName && userFirstName} {userLastName && userLastName}!
 				</h1>
 			</div>
+            <h2 className="sr-only">Accounts</h2>
+			<AccountCard />
 		</main>
 	);
 }
