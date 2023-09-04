@@ -9,6 +9,10 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 
+import PrivateRoutes from "./utils/PrivateRoutes"
+
+import Error from "./pages/Error";
+
 function Router() {
 	return (
 		<React.StrictMode>
@@ -17,7 +21,11 @@ function Router() {
 				<Routes>
 					<Route exact path="/" element={<Home />} />
 					<Route exact path="/login" element={<Login />} />
-					<Route exact path="/profile" element={<Profile />} />
+					<Route element={<PrivateRoutes />}>
+						<Route path='/profile' element={<Profile />} />
+					</Route>
+					<Route path="*" element={<Error />} />
+
 				</Routes>
 				<Footer />
 			</BrowserRouter>
