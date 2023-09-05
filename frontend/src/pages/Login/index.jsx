@@ -17,7 +17,6 @@ import { useNavigate } from 'react-router-dom'
 function Login() {
 
     const error = useSelector((state) => state.login.error)
-    console.log(error)
 
     const isUserAuthenticated = useSelector((state) => state.login.token)
 
@@ -25,6 +24,12 @@ function Login() {
         email: '',
         password: '',
     })
+
+    const [rememberMe, setRememberMe] = useState(false);
+
+
+    const localUserEmail = localStorage.getItem("userEmail");
+
 
 
     const dispatch = useDispatch();
@@ -35,9 +40,9 @@ function Login() {
         e.preventDefault()
         try {
           const loginResult = await userLogin(credientials)
+          rememberMe ? localStorage.setItem("userEmail", credientials.email) : localStorage.removeItem("userEmail")
           dispatch(loginActions.success(loginResult))
         } catch (error) {
-          console.log(error)
           dispatch(loginActions.fail(error.response.data.message))
         }
       }
@@ -50,6 +55,10 @@ function Login() {
         })
       }
 
+      const handleRememberMe = () => {
+		setRememberMe(!rememberMe);
+	};
+
       useEffect(() => {
         if (isUserAuthenticated) {
           navigate('/profile')
@@ -57,7 +66,11 @@ function Login() {
         if (error) {
             dispatch(loginActions.clearError())
         }
-      }, [isUserAuthenticated, navigate])
+        if (localUserEmail) {
+			setRememberMe(true);
+			setCredientials({email: localUserEmail});
+		}
+      }, [isUserAuthenticated])
 
 
     return (
@@ -68,14 +81,14 @@ function Login() {
                 <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
                         <label htmlFor="username">Username</label>
-						<input type="text" id="username" name="email" onChange={handleChange} />
+						<input type="text" id="username" name="email" value={credientials.email} onChange={handleChange} />
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" name="password" onChange={handleChange} />
                     </div>
                     <div className="input-remember">
-                        <input type="checkbox" id="remember-me" />
+                        <input type="checkbox" id="remember-me" checked={rememberMe} onChange={handleRememberMe}/>
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
 
