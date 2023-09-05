@@ -20,6 +20,6 @@
 
    ### Steve Rogers
 
-     - Username: `steve@rogers.com`,
+     - Username: `steve@rogers.com`
      - Password: `password456`
 
