@@ -19,6 +19,11 @@ function Header() {
         dispatch(profileActions.logOut());
 	};
 
+    const signIn = () => {
+        dispatch(loginActions.clearError())
+	};
+
+
     return (
 		<nav className="main-nav">
 			<Link className="main-nav-logo" to="/">
@@ -27,7 +32,7 @@ function Header() {
 			</Link>
 			<div>
 				{!isUserAuthenticated && (
-					<NavLink className="main-nav-item" to="/login">
+					<NavLink onClick={signIn} className="main-nav-item" to="/login">
 						<i className="fa fa-user-circle"></i>
 						Sign In
 					</NavLink>

@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom'
 function Login() {
 
     const error = useSelector((state) => state.login.error)
+    console.log(error)
 
     const isUserAuthenticated = useSelector((state) => state.login.token)
 
@@ -53,6 +54,9 @@ function Login() {
         if (isUserAuthenticated) {
           navigate('/profile')
         }
+        if (error) {
+            dispatch(loginActions.clearError())
+        }
       }, [isUserAuthenticated, navigate])
 
 
@@ -78,7 +82,7 @@ function Login() {
                     <button type="submit" className="sign-in-button">
                         Sign In
                     </button>
-                    {error && <div className="input-error">Error: Invalid Credentials</div>}
+                    {error && <div className="input-error">{error}</div>}
                 </form>
             </section>
         </main>

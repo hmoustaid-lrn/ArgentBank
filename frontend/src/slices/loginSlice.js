@@ -21,6 +21,9 @@ const loginSlice = createSlice({
         state.token = null
         state.error = action.payload
       },
+      clearError: (state) =>{
+        state.error = null
+      },
       out: (state) => {
         state.logged = false
         state.token = null
@@ -34,6 +37,7 @@ const { actions, reducer } = loginSlice
   export const {
     success,
     fail,
+    clearError,
     out
   } = actions
 
