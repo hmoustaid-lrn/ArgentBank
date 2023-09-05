@@ -10,7 +10,7 @@ import * as profileActions from '../../slices/profileSlice';
 function Header() {
 
     const userFirstName = useSelector((state) => state.profile.firstName)
-    const userAutheticated = useSelector((state) => state.login.authenticated)
+    const isUserAuthenticated = useSelector((state) => state.login.token)
 
     const dispatch = useDispatch();
 
@@ -26,21 +26,20 @@ function Header() {
 				<h1 className="sr-only">Argent Bank</h1>
 			</Link>
 			<div>
-				{!userAutheticated && (
+				{!isUserAuthenticated && (
 					<NavLink className="main-nav-item" to="/login">
 						<i className="fa fa-user-circle"></i>
 						Sign In
 					</NavLink>
 				)}
 
-				{userAutheticated && (
+				{isUserAuthenticated && (
 					<NavLink className="main-nav-item" to="/profile">
 						<i className="fa fa-user-circle"></i>
-						{!userFirstName && "Profile"}
-						{userFirstName && userFirstName}
+						{userFirstName}
 					</NavLink>
 				)}
-				{userAutheticated && (
+				{isUserAuthenticated && (
 					<NavLink onClick={signOut} className="main-nav-item" to="/">
 						<i className="fa fa-sign-out"></i>
 						Sign Out

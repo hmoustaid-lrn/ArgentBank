@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    loading: false,
-    authenticated: false,
-    error: '',
+    logged: false,
+    token: null,
+    error: null,
   }
 
 
@@ -11,20 +11,18 @@ const loginSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
-      pending: (state) => {
-        state.loading = true
+      success: (state, action) => {
+        state.logged = true
+        state.token = action.payload.body.token
       },
-      authenticated: (state) => {
-        state.loading = false
-        state.authenticated = true
-        state.error = ''
-      },
-      error: (state, action) => {
-        state.loading = false
+      fail: (state, action) => {
+        state.logged = false
+        state.token = null
         state.error = action.payload
       },
       out: (state) => {
-        state.authenticated = false
+        state.logged = false
+        state.token = null
       },
     },
   })
@@ -32,9 +30,8 @@ const loginSlice = createSlice({
 const { actions, reducer } = loginSlice
 
   export const {
-    pending,
-    authenticated,
-    error,
+    success,
+    fail,
     out
   } = actions
 

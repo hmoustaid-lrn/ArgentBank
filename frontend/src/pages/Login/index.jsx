@@ -31,15 +31,13 @@ function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        dispatch(loginActions.pending())
         try {
-          const isAuthenicated = await userLogin(credientials)
-          dispatch(loginActions.authenticated())
-          
+          const loginResult = await userLogin(credientials)
+          dispatch(loginActions.success(loginResult))
           navigate('/profile')
         } catch (error) {
           console.log(error)
-          dispatch(loginActions.error(error.response.data.message))
+          dispatch(loginActions.fail(error.response.data.message))
         }
       }
 
