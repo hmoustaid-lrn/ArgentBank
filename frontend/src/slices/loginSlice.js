@@ -14,6 +14,7 @@ const loginSlice = createSlice({
       success: (state, action) => {
         state.logged = true
         state.token = action.payload.body.token
+        state.error = null
       },
       fail: (state, action) => {
         state.logged = false
@@ -23,6 +24,7 @@ const loginSlice = createSlice({
       out: (state) => {
         state.logged = false
         state.token = null
+        state.error = null
       },
     },
   })

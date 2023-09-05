@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 
-import { useState} from "react";
+import { useState, useEffect} from "react";
 
 
 import {useDispatch, useSelector} from "react-redux";
@@ -18,6 +18,7 @@ function Login() {
 
     const error = useSelector((state) => state.login.error)
 
+    const isUserAuthenticated = useSelector((state) => state.login.token)
 
     const [credientials, setCredientials] = useState({
         email: '',
@@ -34,7 +35,6 @@ function Login() {
         try {
           const loginResult = await userLogin(credientials)
           dispatch(loginActions.success(loginResult))
-          navigate('/profile')
         } catch (error) {
           console.log(error)
           dispatch(loginActions.fail(error.response.data.message))
@@ -48,6 +48,13 @@ function Login() {
           [name]: value,
         })
       }
+
+      useEffect(() => {
+        if (isUserAuthenticated) {
+          navigate('/profile')
+        }
+      }, [isUserAuthenticated, navigate])
+
 
     return (
         <main className="main bg-dark">
